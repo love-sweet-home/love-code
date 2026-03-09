@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>OUR SECRET PLACE 💗</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="login-screen" class="box">
+    <h2>💗合言葉を入力してね💗</h2>
+    <input type="text" id="pass-input" placeholder="好きな食べ物">
+    <p class="hint-text">ヒント：ひらがな</p>
+    <br><button onclick="checkPassword()">開く</button>
+</div>
+
+<div id="secret-content">
+    <div class="box">
+        <div style="font-size: 50px;">🐰🐻</div>
+        <h1>正解だよっ！</h1>
+        <p>二人の秘密のホムペへようこそ💗</p>
+        </div>
+</div>
+<script>
+        async function checkPassword() {
+            // A. 入力欄に書かれた文字を取得する
+            const input = document.getElementById('pass-input').value;
+            
+            // B. 入力された文字を「ハッシュ（暗号）」に変換する
+            const msgUint8 = new TextEncoder().encode(input);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+            // C. 正解かどうかを比べる（ここに自分のハッシュ値を貼ってね！）
+            const correctHash = "879aecaf4b454fe451d90fad38e87ddcaf811ca30da2268d815cb3407fe7a7b1";
+
+            if (hashHex === correctHash) {
+                // ログイン画面を消す
+                document.getElementById('login-screen').style.display = 'none';
+                // 秘密の画面を出す
+                document.getElementById('secret-content').style.display = 'block';
+            } else {
+                alert("ちがうよ！合言葉を思い出して🥺");
+            }
+        }
+    </script>
+
+</body>
+</html>

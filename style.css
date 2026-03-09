@@ -1,0 +1,83 @@
+/* 全体の背景と配置 */
+body { 
+    background-color: #fff0f6; 
+    font-family: sans-serif; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    min-height: 100vh; 
+    margin: 0; 
+}
+
+/* 白いカードのデザイン */
+.box { 
+    background: white; 
+    padding: 40px; 
+    border-radius: 40px; 
+    border: 6px solid #fabdc7; 
+    text-align: center; 
+    box-shadow: 0 10px 0 #ffc0cb; 
+    width: 300px; 
+}
+
+/* 入力欄 */
+input { 
+    width: 80%; 
+    padding: 12px; 
+    border-radius: 20px; 
+    border: 3px solid #fabdc7; 
+    margin: 15px 0 5px 0; /* 下の隙間を少し詰める */
+    text-align: center; 
+    font-size: 16px; 
+}
+
+/* 入力欄のヒント文字（プレースホルダー）の色を変える */
+input::placeholder {
+    color: #000000; /* 薄いピンクなど、好きな色に指定できます */
+    opacity: 0.3;    /* 0.5 くらいにすると、さらにふんわり薄くなります */
+}
+
+/* 入力欄をクリックした時（フォーカス時）の魔法 */
+input:focus {
+    outline: none;          /* 1. まずはあの黒い枠線を消す！ */
+    border: 3px solid #d7bdfa; /* 2. 代わりに「空色（スカイブルー）」にする */
+    box-shadow: 0 0 10px #d7bdfa; /* 3. ぼんやり光らせるともっと可愛い！ */
+}
+
+/* ヒントの文字（薄くする） */
+.hint-text {
+    font-size:15px;
+    color: #ffc0cb;
+    opacity: 0.7;
+    margin: 5px 0 15px 0; /* 下のボタンとの隙間を作る */
+}
+
+/* ボタン */
+button { 
+    background: #ff85a1; 
+    color: white; 
+    border: none; 
+    padding: 12px 30px; 
+    border-radius: 25px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    font-size: 16px; 
+    transition: 0.2s; 
+}
+
+button:hover { 
+    background: #ff6080; 
+    transform: scale(1.05); 
+}
+
+/* 最初は隠しておく設定 */
+#secret-content { 
+    display: none; 
+}
+
+h2 {
+    color: #ff85a1;    /* ここを好きな色に変えてね！今はボタンと同じピンクです */
+    font-size: 25px;   /* 大きさもここで調整できます */
+    margin-bottom: 20px; /* 下の入力欄とのスキマを調整 */
+    text-shadow: 1px 1px 0px #ffffff; /* 文字に白抜きの影をつけて、読みやすくする魔法 */
+}
