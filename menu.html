@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - 二人の秘密基地</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <h1>💗 OUR SECRET PLACE 💗</h1>
+
+    <div class="main-layout">
+        <div class="side-menu">
+            <div class="menu-container">
+                <a href="page-list1.html" class="menu-button">✈️ 行きたいところ</a>
+                <a href="page-list2.html" class="menu-button">📸 いたところ</a>
+                <a href="page-goal.html" class="menu-button">🎯 目標</a>
+                <a href="page-profile.html" class="menu-button">👤 プロフィール</a>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <h2 id="calendar-month">2026年 --月</h2>
+            
+            <table class="calendar-table">
+                <thead>
+                    <tr>
+                        <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+                    </tr>
+                </thead>
+                <tbody id="calendar-body"></tbody>
+            </table>
+
+            <div class="countdown-container">
+                <span style="color: #888;">次のデートまで</span>
+                <span class="countdown-number">あと <span id="days-left">--</span> 日</span>
+                <span style="font-size: 13px; color: #ff85a1;">楽しみだねっ！✨</span>
+            </div>
+        </div>
+    </div>
+    
+    <div style="font-size: 40px; margin-top: 30px; text-align: center;">🐰 🎀 🐻</div>
+
+    <script>
+        // 【ここを編集！】次のデートの日付を入れてね
+        const nextDateStr = "2026-03-25"; 
+        
+        function init() {
+            const nextDate = new Date(nextDateStr);
+            const now = new Date();
+            
+            // 1. カウントダウン計算
+            const diff = nextDate - now;
+            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("days-left").innerText = days > 0 ? days : 0;
+
+            // 2. カレンダー作成
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            document.getElementById("calendar-month").innerText = `${year}年 ${month + 1}月`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            const tbl = document.getElementById("calendar-body");
+
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                let row = document.createElement("tr");
+                for (let j = 0; j < 7; j++) {
+                    let cell = document.createElement("td");
+                    if (i === 0 && j < firstDay) {
+                        cell.innerText = "";
+                    } else if (date > lastDate) {
+                        break;
+                    } else {
+                        cell.innerText = date;
+                        // 今日の印
+                        if (date === now.getDate()) cell.classList.add("today");
+                        // デートの日の印（ハート）
+                        if (date === nextDate.getDate() && month === nextDate.getMonth()) {
+                            cell.classList.add("date-day");
+                        }
+                        date++;
+                    }
+                    row.appendChild(cell);
+                }
+                tbl.appendChild(row);
+                if (date > lastDate) break;
+            }
+        }
+        init();
+    </script>
+</body>
+</html>

@@ -1,83 +1,189 @@
-/* 全体の背景と配置 */
+/* ========================================
+   1. 全ページ共通のデザイン
+   ======================================== */
 body { 
     background-color: #fff0f6; 
-    font-family: sans-serif; 
+    font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; 
     display: flex; 
+    flex-direction: column; 
     align-items: center; 
     justify-content: center; 
     min-height: 100vh; 
     margin: 0; 
+    padding: 20px;
 }
 
-/* 白いカードのデザイン */
-.box { 
-    background: white; 
-    padding: 40px; 
-    border-radius: 40px; 
-    border: 6px solid #fabdc7; 
-    text-align: center; 
-    box-shadow: 0 10px 0 #ffc0cb; 
-    width: 300px; 
+h1, h2 {
+    color: #ff85a1;
+    text-shadow: 1px 1px 0px #ffffff;
+    text-align: center;
 }
 
-/* 入力欄 */
-input { 
-    width: 80%; 
-    padding: 12px; 
-    border-radius: 20px; 
-    border: 3px solid #fabdc7; 
-    margin: 15px 0 5px 0; /* 下の隙間を少し詰める */
-    text-align: center; 
-    font-size: 16px; 
+h1 { font-size: 28px; margin-bottom: 30px; }
+h2 { font-size: 22px; margin-bottom: 15px; }
+
+/* ========================================
+   2. レイアウト（横並び ＆ 固定設定）
+   ======================================== */
+.main-layout {
+    display: flex;
+    width: 100%;
+    /* max-content ではなく max-width に直してね！ */
+    max-width: 1200px; 
+    margin-top: 20px;
+    align-items: flex-start;
 }
 
-/* 入力欄のヒント文字（プレースホルダー）の色を変える */
-input::placeholder {
-    color: #000000; /* 薄いピンクなど、好きな色に指定できます */
-    opacity: 0.3;    /* 0.5 くらいにすると、さらにふんわり薄くなります */
+/* ★左側のメニューを固定する魔法★ */
+.side-menu {
+    position: sticky; /* スクロールしても画面内に残る */
+    top: 20px;        /* 画面の一番上からどれくらい離すか */
+    flex: 0 0 250px;  /* 幅を250pxで固定 */
+    
+    /* 背景を少し濃いめのピンクにして「メニュー感」を出す */
+    background-color: #ffe4ed; 
+    padding: 30px 20px;
+    border-radius: 40px;
+    border: 4px solid #fabdc7;
+    box-shadow: 4px 4px 0px #ffc0cb; /* ちょっと立体的に */
 }
 
-/* 入力欄をクリックした時（フォーカス時）の魔法 */
-input:focus {
-    outline: none;          /* 1. まずはあの黒い枠線を消す！ */
-    border: 3px solid #d7bdfa; /* 2. 代わりに「空色（スカイブルー）」にする */
-    box-shadow: 0 0 10px #d7bdfa; /* 3. ぼんやり光らせるともっと可愛い！ */
+/* 右側のメインエリアに左との隙間を作る */
+.content-area {
+    flex: 1;
+    margin-left: 40px; /* メニューとの間にしっかり余裕を！ */
+    background: white;
+    padding: 30px;
+    border-radius: 40px;
+    border: 6px solid #fabdc7;
+    box-shadow: 0 10px 0 #ffc0cb;
+    min-height: 500px;
 }
 
-/* ヒントの文字（薄くする） */
-.hint-text {
-    font-size:15px;
-    color: #ffc0cb;
-    opacity: 0.7;
-    margin: 5px 0 15px 0; /* 下のボタンとの隙間を作る */
+/* 📱スマホの時は固定を解除して縦に並べる */
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+    .side-menu {
+        position: static; /* 固定を解除 */
+        max-width: 100%;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .content-area {
+        margin-left: 0;
+        width: 100%;
+    }
 }
 
-/* ボタン */
-button { 
-    background: #ff85a1; 
-    color: white; 
-    border: none; 
-    padding: 12px 30px; 
-    border-radius: 25px; 
-    cursor: pointer; 
-    font-weight: bold; 
-    font-size: 16px; 
-    transition: 0.2s; 
+/* ========================================
+   3. メニューボタンのデザイン
+   ======================================== */
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    width: 100%;
 }
 
-button:hover { 
-    background: #ff6080; 
-    transform: scale(1.05); 
+.menu-button {
+    /* これを追加！枠線や余白を「幅」の中に含める魔法です */
+    box-sizing: border-box; 
+    
+    /* 幅を 100% にして、親要素（side-menu）の中に収まるようにします */
+    width: 100%; 
+    
+    padding: 15px;
+    background-color: white; 
+    border: 4px solid #fabdc7; 
+    border-radius: 30px; 
+    text-decoration: none; 
+    color: #ff85a1; 
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0 6px 0 #ffc0cb; 
+    transition: all 0.2s ease; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
-/* 最初は隠しておく設定 */
-#secret-content { 
-    display: none; 
+.menu-button:hover {
+    transform: translateY(3px); 
+    box-shadow: 0 3px 0 #ffc0cb; 
+    background-color: #fff0f6; 
 }
 
-h2 {
-    color: #ff85a1;    /* ここを好きな色に変えてね！今はボタンと同じピンクです */
-    font-size: 25px;   /* 大きさもここで調整できます */
-    margin-bottom: 20px; /* 下の入力欄とのスキマを調整 */
-    text-shadow: 1px 1px 0px #ffffff; /* 文字に白抜きの影をつけて、読みやすくする魔法 */
+/* ========================================
+   4. カレンダーのデザイン
+   ======================================== */
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-table th {
+    color: #ff85a1;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.calendar-table td {
+    text-align: center;
+    padding: 12px 5px;
+    border-radius: 12px;
+    color: #555;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* 今日の日付 */
+.today {
+    background-color: #fff0f6;
+    border: 2px solid #ff85a1;
+    color: #ff85a1 !important;
+}
+
+/* ハートマークがつく日の設定 */
+.date-day {
+    position: relative;
+    color: #ff6080 !important;
+}
+.date-day::after {
+    content: "💗";
+    position: absolute;
+    top: -5px;
+    right: -2px;
+    font-size: 12px;
+}
+
+/* ========================================
+   5. カウントダウンのデザイン
+   ======================================== */
+.countdown-container {
+    margin-top: 25px;
+    padding: 15px;
+    background: #fff5f8;
+    border-radius: 25px;
+    border: 2px dashed #fabdc7;
+    text-align: center;
+}
+
+.countdown-number {
+    font-size: 30px;
+    color: #ff85a1;
+    font-weight: bold;
+    display: block;
+    margin: 5px 0;
+}
+
+/* 📱スマホ用調整 */
+@media (max-width: 768px) {
+    .main-layout { flex-direction: column; align-items: center; }
+    .side-menu { max-width: 100%; order: 1; }
+    .content-area { width: 100%; order: 2; box-sizing: border-box; }
 }
