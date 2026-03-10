@@ -38,40 +38,57 @@ h2 { font-size: 22px; margin-bottom: 15px; }
 }
 
 /* ========================================
-   2. メニュー画面（menu.html）用のレイアウト
+   2. レイアウト（左固定設定）
    ======================================== */
 .main-layout {
     display: flex;
     width: 100%;
-    max-width: 1200px; 
-    margin-top: 20px;
-    align-items: flex-start; /* メニューは上揃えにする */
+    min-height: 100vh;
 }
 
+/* ★メニューを画面の左に「ずっと固定」する魔法★ */
 .side-menu {
-    position: sticky; 
-    top: 20px;        
-    flex: 0 0 250px;  
+    position: fixed; /* 画面に張り付く */
+    top: 0;
+    left: 0;
+    width: 250px; /* メニューの幅 */
+    height: 100vh; /* 画面の高さ出し切り */
     background-color: #ffe4ed; 
-    padding: 30px 20px;
-    border-radius: 40px;
-    border: 4px solid #fabdc7;
-    box-shadow: 4px 4px 0px #ffc0cb;
-    box-sizing: border-box; /* 枠からはみ出さない魔法 */
+    padding: 40px 20px;
+    border-right: 4px solid #fabdc7; /* 右側に境界線 */
+    box-sizing: border-box;
+    z-index: 1000; /* 一番手前に出す */
 }
 
+/* メインエリアがメニューに重ならないように「左に余白」を作る */
 .content-area {
     flex: 1;
-    margin-left: 40px; 
-    background: white;
-    padding: 30px;
-    border-radius: 40px;
-    border: 6px solid #fabdc7;
-    box-shadow: 0 10px 0 #ffc0cb;
-    min-height: 500px;
+    margin-left: 250px; /* メニューの幅と同じ分だけ右にずらす */
+    padding: 40px;
+    background: #fff0f6; /* 背景色を合わせる */
     box-sizing: border-box;
 }
 
+/* ========================================
+   📱 スマホ用の調整（ここが大事！）
+   ======================================== */
+@media (max-width: 768px) {
+    /* スマホでも左にメニューを置くと狭すぎるので、
+       スマホの時だけ「左固定」を解除して、上に置きます */
+    .side-menu {
+        position: static; 
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 4px solid #fabdc7;
+        padding: 20px;
+    }
+
+    .content-area {
+        margin-left: 0; /* 余白をなくす */
+        padding: 20px;
+    }
+}
 /* ========================================
    3. メニューボタンのデザイン
    ======================================== */
