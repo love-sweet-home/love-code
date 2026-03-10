@@ -21,21 +21,35 @@
         </div>
 
         <div class="content-area">
-            <h2 id="calendar-month">2026年 --月</h2>
-            
-            <table class="calendar-table">
-                <thead>
-                    <tr>
-                        <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
-                    </tr>
-                </thead>
-                <tbody id="calendar-body"></tbody>
-            </table>
+            <div class="card">
+                <h2>✈️ 行きたいところメモ</h2>
+                <ul id="memo-list" class="memo-list">
+                    <li class="memo-item">サンリオピューロランド 🎀</li>
+                </ul>
+                <div class="memo-input-group">
+                    <input type="text" id="memo-input" placeholder="場所を入力してね">
+                    <button class="add-btn" onclick="addMemo()">追加</button>
+                </div>
+            </div>
 
-            <div class="countdown-container">
-                <span style="color: #888;">次のデートまで</span>
-                <span class="countdown-number">あと <span id="days-left">--</span> 日</span>
-                <span style="font-size: 13px; color: #ff85a1;">楽しみだねっ！✨</span>
+            <div class="card">
+                <div class="countdown-container">
+                    <span style="color: #888; font-size: 14px;">次のデートまで</span>
+                    <span class="countdown-number">あと <span id="days-left">--</span> 日</span>
+                    <span style="font-size: 13px; color: #ff85a1;">楽しみだねっ！✨</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 id="calendar-month">2026年 --月</h2>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body"></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -43,7 +57,7 @@
     <div style="font-size: 40px; margin-top: 30px; text-align: center;">🐰 🎀 🐻</div>
 
     <script>
-        // 【ここを編集！】次のデートの日付を入れてね
+        // 【編集用】次のデートの日付
         const nextDateStr = "2026-03-25"; 
         
         function init() {
@@ -75,9 +89,7 @@
                         break;
                     } else {
                         cell.innerText = date;
-                        // 今日の印
                         if (date === now.getDate()) cell.classList.add("today");
-                        // デートの日の印（ハート）
                         if (date === nextDate.getDate() && month === nextDate.getMonth()) {
                             cell.classList.add("date-day");
                         }
@@ -89,6 +101,20 @@
                 if (date > lastDate) break;
             }
         }
+
+        // メモ追加の魔法
+        function addMemo() {
+            const input = document.getElementById('memo-input');
+            const text = input.value.trim();
+            if (text) {
+                const li = document.createElement('li');
+                li.className = 'memo-item';
+                li.innerText = text;
+                document.getElementById('memo-list').appendChild(li);
+                input.value = ''; 
+            }
+        }
+
         init();
     </script>
 </body>
