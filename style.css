@@ -170,7 +170,7 @@ h2 {
 }
 
 /* ========================================
-   3. スマホ・画面を狭めた時の調整（修正版！）
+   3. スマホ・画面を狭めた時の調整（余白たっぷり版！）
    ======================================== */
 @media (max-width: 768px) {
     h1 { font-size: 20px; height: 60px; }
@@ -182,32 +182,34 @@ h2 {
         padding: 10px 5px;
     }
 
-    /* メインエリアの余白を整理 */
     .content-area {
-        /* 左：メニュー分(120px)+隙間20px、右：20px の余白を固定 */
-        margin: 10px 20px 10px 135px !important; 
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* カードを中央に寄せる */
+        /* 左：メニュー分(120px)＋隙間10px、右：しっかり15pxの余白を確保 */
+        margin: 10px 15px 10px 130px !important; 
+        padding: 0; 
+        display: block; /* 縦並びを確実に */
     }
 
-    /* カードを画面幅いっぱいにしつつ、親要素のmarginで余白を作る */
     .card {
-        width: 100%;
+        /* content-areaの幅いっぱいにしつつ、marginの効果で左右に隙間ができる */
+        width: 100%; 
         max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
         padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 20px;
+        box-sizing: border-box; /* パディングを含めた計算にする */
     }
 
-    .menu-button {
-        font-size: 11px;
-        padding: 10px 4px;
+    .input-group {
+        flex-direction: column; /* スマホでは入力欄とボタンを縦に並べて余裕を持たせる */
+        gap: 8px;
+    }
+
+    #date-picker, #memo-input {
+        width: 100% !important; /* スマホでは幅いっぱいに */
     }
 
     .calendar-table td, .calendar-table th {
-        font-size: 13px; /* カレンダーがはみ出さないよう少し小さく */
+        font-size: 13px;
         padding: 4px 1px;
     }
 }
