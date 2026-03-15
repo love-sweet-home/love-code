@@ -375,11 +375,27 @@ body.home-page {
     /*👇Flexboxー自動で真ん中寄せ・整列ーセットーーー👇*/
     display: flex;           /*レイアウトの自由な並べ替えできるようになる */
     flex-direction: column;   /* 💡 中身を「縦」に並べる魔法 */
-    justify-content: center; /*左右（横）のど真ん中に並べる*/
+    justify-content: flex-start; /*左右（横）のど真ん中に並べる*/
     align-items: center;     /*上下（縦）のど真ん中に並べる*/
     padding-top: 20px;
     align-items: center;     /*上下（縦）のど真ん中に並べる*/ 
     gap: 0px;               /* 💡 各パーツの間のスキマ */
+    /*🟨ーーーーーーーーーーーーーーーーーーーーーーー🟨*/
+
+    /* 💡 看板としずくに被らないように、上に大きな通り道を作る */
+    padding-top: 350px; 
+    /* 💡 下の看板にも被らないように余白を作る */
+    padding-bottom: 20px;
+
+    /*👇白い水玉模様（ドット）をつくるーーーーーーーー👇*/
+    /*radial-gradient：円形のグラデーション*/
+    /*#ffffff 20%：白い水玉模様の水玉の部分*/
+    /*transparent 20%：透明な部分。これによって背景のピンクが見える*/
+    background-image: radial-gradient(#ffffff 20%, transparent 20%);
+    background-size: 30px 30px;   /*水玉模様の大きさ 上下、左右*/
+    background-position: center;  /*水玉模様のスタート位置　真ん中から*/
+    background-repeat: repeat;    /*水玉模様を縦にも横にも繰り返す*/
+    background-attachment: fixed; /*画面に固定してスクロールしても動かないようにする*/
     /*🟨ーーーーーーーーーーーーーーーーーーーーーーー🟨*/
 }
 /*🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷*/
@@ -577,4 +593,104 @@ body.home-page {
     font-size: 20px;
     line-height: 40px;
     cursor: pointer;
+}
+
+/*🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷ー🩷*/
+
+/* 🏠 メインエリアの調整 */
+.home-main-content {
+    margin-top: -170px;    /* 看板としずくに被らないように下げる */
+    margin-bottom: 10px; /* 下の看板に被らないように */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* 🖼️ ポラロイド風の白い額縁（サイズアップ版！） */
+.photo-frame {
+    background-color: white;
+    padding: 10px 10px 15px 10px; /* 下側の余白を少し増やしてポラロイド感をUP */
+    border-radius: 12px;
+
+    /* 💡 魔法：幅と高さを大きくしたよ！ */
+    width: 320px;  /* 280px から 320px にアップ！ */
+    height: 350px; /* 340px から 400px にアップ！ */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* 📷 写真とGIFの設定 */
+.main-photo, .main-gif {
+    width: 100%;
+    
+    /* 💡 魔法：写真部分の高さも 300px にアップ！ */
+    height: 300px; 
+    
+    /* 💡 写真を歪ませずにきれいに切り抜く魔法（これは必須！） */
+    object-fit: cover; 
+    
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+/* 🖋️ 写真の下の文字 */
+.photo-caption {
+    margin-top: 15px;
+    color: #ff85a1;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 👇 GIF画像の設定 👇 */
+.main-gif {
+    display: block; /* 💡 今はGIFを表示するよ！ */
+}
+
+/* 👇 普通の写真の設定 👇 */
+.main-photo {
+    display: none; /* 💡 今は写真は隠しておく魔法（none）！ */
+}
+
+/* 🖋️ 写真の下の文字 */
+.photo-caption {
+    margin-top: 15px;
+    color: #ff85a1;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 🎀 記念日エリアのスタイル */
+.anniversary-container {
+    margin-top: 30px;
+    text-align: center;
+    line-height: 1.6; /* 💡 行の間隔を少し広げて読みやすく */
+}
+
+/* 1行目：付き合って */
+.anniversary-label {
+    color: #ffb7ce;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* 2行目：〇年〇か月〇日 */
+.anniversary-days {
+    color: #ff85a1;
+    font-size: 50px; /* 💡 ここを一番大きく！ */
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+/* 3行目：なかよし */
+.love-status {
+    color: #ffb7ce;
+    font-size: 14px;
+    letter-spacing: 2px;
 }

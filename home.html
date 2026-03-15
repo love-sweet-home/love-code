@@ -33,6 +33,20 @@
         <button id="close-btn" class="close-circle">×</button>
     </div>
 </div>
+
+<main class="home-main-content">
+    <div class="photo-frame">
+        <img src="image/pink.gif" alt="動くマイメロちゃん" class="main-gif">
+        <img src="image/photo.jpg" alt="二人の思い出" class="main-photo">
+        <p class="photo-caption">♡ BIG LOVE ♡</p>
+    </div>
+</main>
+<div class="anniversary-container">
+    <p class="anniversary-label">付き合って</p> 
+    <p id="counter-text" class="anniversary-days">読み込み中...</p> 
+    <p class="love-status">💗なかよし💗</p></div>
+</div>
+<div class="bottom-lace"></div>
 <div class="bottom-header"></div>
 <script>
     const openBtn = document.getElementById('open-menu-btn');
@@ -55,6 +69,37 @@
             menuModal.style.display = 'none';
         }
     });
+
+    function updateAnniversary() {
+    // 📅 ここに「付き合った日」を入れてね！ (年, 月-1, 日)
+    // ※月は 0から始まるから、3月なら「2」、10月なら「9」って書いてね！
+    const startDate = new Date(2023, 12, 24);
+
+    const now = new Date();
+    
+    // 💡 詳しい計算魔法（基本情報のアルゴリズムの練習にもなるよ！）
+    let years = now.getFullYear() - startDate.getFullYear();
+    let months = now.getMonth() - startDate.getMonth();
+    let days = now.getDate() - startDate.getDate();
+
+    if (days < 0) {
+        months--;
+        const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += lastMonth.getDate();
+    }
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    // 画面に表示させる！
+    // 画面に表示させる！（「付き合って」を消して数字だけにするよ）
+    const counterElement = document.getElementById('counter-text');
+    counterElement.innerText = `${years}年 ${months}か月 ${days}日`;
+}
+
+// ページを開いた時に計算を実行！
+updateAnniversary();
 </script>
 
 </body>
