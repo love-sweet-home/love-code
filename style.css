@@ -778,7 +778,7 @@ body.date-page {
 /* 📒 カウントダウン部分 */
 .countdown-days {
     font-size: 40px; /* 💡 48pxから少しだけ小さく */
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .countdown-days {
@@ -786,6 +786,35 @@ body.date-page {
     font-size: 48px;
     margin-top: -15px;
     font-weight: bold;
+}
+
+/* 📒 入力エリアをまとめる白いカード */
+.booking-card {
+    background: white;
+    border: 3px solid #fabdc7;
+    border-radius: 25px;
+    padding: 20px 15px;
+    width: 90%;
+    max-width: 400px;
+    margin: 0px auto; /* 真ん中に寄せる */
+    box-shadow: 0 8px 20px rgba(255, 183, 206, 0.2);
+    text-align: center;
+}
+
+/* カードの中の入力欄の並びを整える */
+.booking-inputs {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* 更新ボタンをカードに馴染ませる */
+.booking-card .update-btn {
+    margin: 0 auto;
+    width: 25%; /* カードの中なので少し小さめに */
+    height: 40px;
+    font-size: 18px;
 }
 
 /* 🏨 ホテル予約風の入力エリア */
@@ -799,9 +828,11 @@ body.date-page {
 }
 
 .input-group { 
+    width: 125px;
     display: flex; 
     flex-direction: column; 
-    text-align: left; 
+    text-align: center; 
+    margin-top: -3%;
 }
 
 .input-group label { 
@@ -821,9 +852,9 @@ body.date-page {
 
 .update-btn {
     /*👇形とサイズーーーーーーーーーーーーーーーーーー👇*/
-    width: 25%;                     /*ボタンの横幅*/
+    width: 15%;                     /*ボタンの横幅*/
     padding: 5px;                    /*文字とフチの間のゆとり*/
-    border-radius: 40px;            /*角を丸くする*/
+    border-radius: 12px;            /*角を丸くする*/
     margin-top: 20px;
     cursor: pointer;                /* マウスを乗せると指マークになる */
     /*🟨ーーーーーーーーーーーーーーーーーーーーーーー🟨*/
@@ -834,7 +865,6 @@ body.date-page {
     font-size: 20px;                /*文字の大きさ*/
     font-weight: bold;              /*文字の太さ*/
     border: none;                   /*ブラウザが勝手につける黒い枠線を消す*/
-    box-shadow: 0 8px 0 #ffa3b8;  /*立体的な厚み */
     /*🟨ーーーーーーーーーーーーーーーーーーーーーーー🟨*/
 
     /*👇押した感覚ーーーーーーーーーーーーーーーーーー👇*/
@@ -875,7 +905,6 @@ body.date-page {
     padding: 15px 10px;
     width: 48%;
     max-width: 180px;
-    box-shadow: 0 8px 20px rgba(255, 183, 206, 0.2);
 }
 
 /* 📅 月のタイトル（3月、4月） */
@@ -979,6 +1008,7 @@ body.go-page {
     outline: none;
     color: #ff85a1;
     font-weight: bold;
+    text-align: center;
 }
 
 .add-btn {

@@ -11,7 +11,7 @@
 <body class="date-page">
 <header class="home-top-header">
     <div class="home-header-content">
-        <span class="home-header-title">🧸Love Mellow🧸</span>
+        <span class="home-header-title">🎀Next Date🎀</span>
     </div>
     <button id="open-menu-btn" class="menu-open-button">MENU</button>
 </header>
@@ -20,35 +20,36 @@
     <div class="menu-window">
         <h2 class="menu-title">Menu</h2>
         <ul class="menu-list">
-            <li><a href="home.html" class="current">ホーム</a></li>
-            <li><a href="date.html" class="current">次のデート</a></li>
-            <li><a href="#">行きたいところ</a></li>
-            <li><a href="#">思い出</a></li>
-            <li><a href="#">目標</a></li>
-            <li><a href="#">貯金</a></li>
-            <li><a href="#">プロフ</a></li>
-            <li><a href="#">お問い合わせ</a></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="date.html" class="current">Next Date</a></li>
+            <li><a href="lets-go.html">Wish List</a></li>
+            <li><a href="memories.html">Memories</a></li>
+            <li><a href="#">Goals</a></li>
+            <li><a href="#">Savings amount</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Contact</a></li>
         </ul>
         <button id="close-btn" class="close-circle">×</button>
     </div>
 </div>
 
 <main class="date-main">
-    <p class="countdown-label">次のデート</p>
+    <p class="countdown-label">次のデートまで</p>
     
     <div class="countdown-card">
         <p class="countdown-days"><span id="days-left">--</span>日</p>
-        <div class="booking-inputs">
-            <div class="input-group">
-                <label>会える日💗</label>
-                <input type="date" id="check-in">
-            </div>
-            <div class="input-group">
-                <label>バイバイの日😢</label>
-                <input type="date" id="check-out">
-            </div>
+        <div class="booking-card">
+            <div class="booking-inputs">
+                <div class="input-group">
+                    <label>会える日💗</label>
+                    <input type="date" id="check-in">
+                </div>
+                <div class="input-group">
+                    <label>バイバイの日😢</label>
+                    <input type="date" id="check-out">
+                </div>
+            </div><button onclick="updateCountdown()" class="update-btn" id="update-btn">更新</button>
         </div>
-        <button onclick="updateCountdown()" class="update-btn" id="update-btn">更新</button>
         <div class="calendar-wrapper">
             <div id="calendar-1" class="calendar-box">1月（仮）</div>
             <div id="calendar-2" class="calendar-box">2月（仮）</div>
@@ -57,7 +58,9 @@
 </main>
 
 <div class="bottom-lace"></div>
-<div class="bottom-header"></div>
+<div class="bottom-header">
+<span class="home-header-title">🐰 Love Mellow 🐻</span>
+</div>
 
 <script>
     const openBtn = document.getElementById('open-menu-btn');

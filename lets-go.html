@@ -11,7 +11,7 @@
 <body class="go-page">
 <header class="home-top-header">
     <div class="home-header-content">
-        <span class="home-header-title">🧸Love Mellow🧸</span>
+        <span class="home-header-title">💫Wish List💫</span>
     </div>
     <button id="open-menu-btn" class="menu-open-button">MENU</button>
 </header>
@@ -20,24 +20,24 @@
     <div class="menu-window">
         <h2 class="menu-title">Menu</h2>
         <ul class="menu-list">
-            <li><a href="home.html">ホーム</a></li>
-            <li><a href="date.html">次のデート</a></li>
-            <li><a href="lets-go.html" class="current">行きたいところ</a></li>
-            <li><a href="#">思い出</a></li>
-            <li><a href="#">目標</a></li>
-            <li><a href="#">貯金</a></li>
-            <li><a href="#">プロフ</a></li>
-            <li><a href="#">お問い合わせ</a></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="date.html">Next Date</a></li>
+            <li><a href="lets-go.html" class="current">Wish List</a></li>
+            <li><a href="memories.html">Memories</a></li>
+            <li><a href="#">Goals</a></li>
+            <li><a href="#">Savings amount</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Contact</a></li>
         </ul>
         <button id="close-btn" class="close-circle">×</button>
     </div>
 </div>
 
 <main class="go-main">
-    <p class="go-label">行きたいところリスト</p>
+    <p class="countdown-label">行きたいところリスト</p>
 
     <div class="input-card">
-        <input type="text" id="wish-input" placeholder="どこに行きたい？💗">
+        <input type="text" id="wish-input" placeholder="いろんなところ行こうね">
         <button onclick="addWish()" class="add-btn">追加</button>
     </div>
 
@@ -114,7 +114,7 @@
         const card = document.createElement('div');
         card.className = 'wish-card';
         card.innerHTML = `
-            <span>💗 ${text}</span>
+            <span>・ ${text}</span>
             <button class="delete-wish-btn" onclick="deleteWish(${index})">×</button>
         `;
         // 新しいものが一番上に来るように prepend
@@ -123,7 +123,7 @@
 
     // 🌸 倉庫（スプレッドシート）から消す魔法
     async function deleteWish(index) {
-        if (!confirm("これをリストから消してもいい？💗")) return;
+        if (!confirm("これをリストから消してもいいの？(ﾟдﾟ)")) return;
 
         // 💡 1. 画面上のカードを特定して、ぬるっと消えるアニメをかける
         const container = document.getElementById('wish-list-container');
