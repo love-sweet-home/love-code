@@ -325,7 +325,6 @@ input[type="text"]#pass-field {
     font-size: 20px;                /*文字の大きさ*/
     font-weight: bold;              /*文字の太さ*/
     border: none;                   /*ブラウザが勝手につける黒い枠線を消す*/
-    box-shadow: 0 8px 0 #ffa3b8;  /*立体的な厚み */
     /*🟨ーーーーーーーーーーーーーーーーーーーーーーー🟨*/
 
     /*👇押した感覚ーーーーーーーーーーーーーーーーーー👇*/
@@ -893,7 +892,7 @@ body.date-page {
     justify-content: center;
     gap: 10px;
     width: 100%;
-    margin-top: 40px;
+    margin-top: 30px;
     padding: 0 10px;
 }
 
@@ -1078,4 +1077,22 @@ body.go-page {
 .delete-wish-btn:hover {
     background: #fabdc7;
     color: white;
+}
+
+
+
+/* 📷 ギャラリー全体の並び */
+.gallery-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 50px;
+}
+
+/* 🖋 入力カードを写真用に調整（URLとメモを並べる） */
+.input-card {
+    flex-direction: column; /* 写真用は縦に並べる方が入力しやすいかも */
+    gap: 8px;
 }
