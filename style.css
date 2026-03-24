@@ -618,6 +618,9 @@ body.home-page {
 /* 🖼️ ポラロイド風の白い額縁（サイズアップ版！） */
 .photo-frame {
     background-color: white;
+
+    margin-top: 20px;
+    margin-bottom: -20px;
     padding: 10px 10px 15px 10px; /* 下側の余白を少し増やしてポラロイド感をUP */
     border-radius: 12px;
 
@@ -852,7 +855,7 @@ body.date-page {
 .update-btn {
     /*👇形とサイズーーーーーーーーーーーーーーーーーー👇*/
     width: 15%;                     /*ボタンの横幅*/
-    padding: 5px;                    /*文字とフチの間のゆとり*/
+    padding: 0 15px;                    /*文字とフチの間のゆとり*/
     border-radius: 12px;            /*角を丸くする*/
     margin-top: 20px;
     cursor: pointer;                /* マウスを乗せると指マークになる */
@@ -873,17 +876,7 @@ body.date-page {
     /* (今の設定にこれらをプラス) */
     display: block;
     margin: 10px auto 40px; /* 上に10px、左右は自動（真ん中）、下に40px */
-}
 
-/*🟦ボタンを押したら沈む*/
-#update-btn:active {
-    /*👇下にずらす設定ーーーーーーーーーーーーーーーー👇*/
-    transform: translateY(4px); /*押した瞬間に4px下に動かす */
-    /*🟨ーーーーーーーーーーーーーーーーーーーーーーー🟨*/
-
-    /*👇厚みの調整ーーーーーーーーーーーーーーーーーー👇*/
-    box-shadow: 0 2px 0 #e8a2af;
-    /*🟨ーーーーーーーーーーーーーーーーーーーーーーー🟨*/
 }
 
 /* 📅 カレンダー2か月分を並べる外枠 */
@@ -1081,18 +1074,133 @@ body.go-page {
 
 
 
-/* 📷 ギャラリー全体の並び */
+/* 📷 ギャラリー全体の並び（魔法：Flexbox） */
 .gallery-container {
     width: 95%;
+    max-width: 1100px; /* 3枚並んでも綺麗に見える幅 */
+    display: flex;
+    flex-wrap: wrap;    /* 💡 3枚並んだら「改行」してね！という魔法 */
+    justify-content: center; /* 真ん中に寄せる */
+    gap: 15px;         /* 写真同士のスキマ */
+    padding-bottom: 100px;
+    margin: 0 auto;
+}
+
+/* 🖼️ ポラロイド風の白い額縁（サイズを3枚並び用に調整！） */
+.photo-frame {
+    background-color: white;
+    padding: 8px 8px 15px 8px; 
+    border-radius: 10px;
+    
+    /* 💡 魔法：1枚の幅を「33%から隙間を引いた分」にするよ */
+    width: calc(33.33% - 10px); 
+    min-width: 110px; /* スマホで小さくなりすぎないように */
+    height: auto;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    padding-bottom: 50px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* 📷 中の写真のサイズも自動調整 */
+.main-photo {
+    width: 100%;
+    height: 120px; /* 💡 3枚並びだと高さはこれくらいが可愛い！ */
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* 🖋️ 写真の下の文字（小さく調整） */
+.photo-caption {
+    margin-top: 8px;
+    font-size: 11px; /* 💡 横並び用にしゅっとさせる */
+    color: #ff85a1;
+    font-weight: bold;
+    text-align: center;
 }
 
 /* 🖋 入力カードを写真用に調整（URLとメモを並べる） */
 .input-card {
     flex-direction: column; /* 写真用は縦に並べる方が入力しやすいかも */
     gap: 8px;
+}
+
+/* 💡 デート入力欄を左右に並べる魔法 */
+.side-by-side {
+    display: flex;         /* 横に並べる */
+    justify-content: center; 
+    gap: 10px;            
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.side-by-side .input-group {
+    flex: 1;               /* 左右均等 */
+    max-width: 140px;      
+}
+
+/* 🎀 頑固な元のボタンを、完全に透明にして隠す魔法 */
+.hidden-file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* 🎀 身代わりの可愛いボタン（ラベル）の見た目 */
+.cute-file-label {
+    display: inline-block;
+    background-color: #ffffff; /* 白い背景 */
+    color: #fabdc7;            /* ピンクの文字 */
+    border: 3px solid #fabdc7; /* 可愛い二重線 */
+    border-radius: 14px;       /* 丸くする */
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;           /* マウスを乗せると指マーク */
+    transition: 0.2s;          /* 動きをなめらかに */
+    text-align: center;
+    width: 100%;               /* 横幅いっぱい */
+    margin-bottom: 5px;
+}
+
+
+/* 🎀 ハートのアイコンを少し大きく */
+.heart-icon {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+/* 🗑️ 削除ボタンのスタイル */
+.delete-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 183, 206, 0.6); /* 薄いピンクの膜 */
+    display: none; /* 普段は隠しておく */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+.delete-confirm-btn {
+    background: #fabdc7;
+    color: white;
+    border: none;
+    padding: 0px 15px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+/* 長押し（アクティブ）状態を管理するためのクラス */
+.photo-frame.show-delete .delete-overlay {
+    display: flex;
 }
