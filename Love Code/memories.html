@@ -36,22 +36,26 @@
 <main>
     <p class="go-label">二人の思い出アルバム</p>
 
-    <div class="input-card">
-        <input type="text" id="photo-url" placeholder="画像のURLを貼ってね💗">
-        <input type="text" id="photo-caption" placeholder="一言メモ📝">
-        <button onclick="addPhoto()" class="add-btn">保存</button>
-    </div>
+<div class="input-card">
+    <input type="file" id="photo-file" accept="image/*" class="hidden-file-input">
+    
+    <label for="photo-file" class="cute-file-label">
+        <span class="heart-icon"></span> 写真を選ぶ
+    </label>
+
+    <input type="text" id="photo-caption" placeholder="思い出のタイトル">
+    <button onclick="uploadAndSave()" class="add-btn" id="upload-btn">保存</button>
+</div>
 
     <div id="photo-gallery" class="gallery-container">
-        </div>
+    </div>
 </main>
 
 <div class="bottom-lace"></div>
 <div class="bottom-header"></div>
 
 <script>
-    // 💡 さよちゃんが今発行してくれたURLに書き換えたよ！
-    const PHOTO_API_URL = "https://script.google.com/macros/s/AKfycbxnX1GNBk0Tg-cncCDjID4RJQJAiMTWrhCJRlzICHnEJ-1osGg09cYQ_UEU_o2lhzlY/exec";
+    const PHOTO_API_URL = "https://script.google.com/macros/s/AKfycbyNXoEBMwkmUQeKUWjvJAj8GkWss1g1TG0w0qI2YWTSC8e1xipSaFR1gJx0T5E5OUBH/exec";
 
     // メニューの基本設定
     const openBtn = document.getElementById('open-menu-btn');
@@ -63,7 +67,7 @@
     // 🌸 ページを開いた時に写真を読み込む
     window.onload = async function() {
         const gallery = document.getElementById('photo-gallery');
-        gallery.innerHTML = "<p style='color:#ffb7ce;'>アルバムを開いています...💕</p>";
+        gallery.innerHTML = "<p style='color:#ff85a1;'>アルバムを開いています...💕</p>";
         
         try {
             const response = await fetch(PHOTO_API_URL);
@@ -71,66 +75,114 @@
             gallery.innerHTML = ""; 
             photos.reverse().forEach(data => displayPhoto(data));
         } catch (e) {
-            gallery.innerHTML = "<p style='color:#ffb7ce;'>読み込みに失敗しちゃった😢</p>";
+            gallery.innerHTML = "<p style='color:#ff85a1;'>読み込みに失敗しちゃった😢</p>";
         }
     };
 
-    // 🌸 写真を保存する魔法
-    async function addPhoto() {
-        const urlInput = document.getElementById('photo-url');
+    // 📸 写真をCloudinaryに送って保存する魔法
+    async function uploadAndSave() {
+        const fileInput = document.getElementById('photo-file');
         const capInput = document.getElementById('photo-caption');
-        const url = urlInput.value.trim();
-        const caption = capInput.value.trim();
+        const btn = document.getElementById('upload-btn');
 
-        if (!url) return alert("画像のURLを入れてね！");
+        if (!fileInput.files[0]) return alert("写真を選んでね！");
+
+        btn.disabled = true;
+        btn.innerText = "魔法をかけてます...✨";
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('upload_preset', 'my_album'); // 👈 Cloudinaryの設定名
 
         try {
+            const cloudRes = await fetch('https://api.cloudinary.com/v1_1/dozgjlp9d/image/upload', {
+                method: 'POST',
+                body: formData
+            });
+            const cloudData = await cloudRes.json();
+            const imageUrl = cloudData.secure_url; 
+
             await fetch(PHOTO_API_URL, {
                 method: "POST",
-                body: JSON.stringify({ url: url, caption: caption })
+                body: JSON.stringify({ url: imageUrl, caption: capInput.value })
             });
+
             location.reload(); 
         } catch (e) {
-            alert("保存できなかったよ💦");
+            alert("アップロードに失敗しちゃった😭");
+            btn.disabled = false;
+            btn.innerText = "アルバムに保存";
         }
     }
 
-// 🌸 画面にポラロイドを作る魔法
-    function displayPhoto(data) {
-        const gallery = document.getElementById('photo-gallery');
-        const frame = document.createElement('div');
-        frame.className = 'photo-frame'; 
-        frame.style.marginBottom = "30px";
-        
-        // 💡 ここで cleanImageUrl を使って、住所を「本物の画像」に変換するよ！
-        const finalUrl = cleanImageUrl(data.url);
-        
-        frame.innerHTML = `
-            <img src="${finalUrl}" class="main-photo" style="display:block;">
-            <p class="photo-caption">${data.caption || 'No Title'}</p>
-        `;
-        gallery.appendChild(frame);
-    }
+function displayPhoto(data) {
+    const gallery = document.getElementById('photo-gallery');
+    const frame = document.createElement('div');
+    frame.className = 'photo-frame'; 
+    frame.style.position = 'relative'; // 削除ボタンの基準にする
+    
+    const finalUrl = data.url;
+    
+    frame.innerHTML = `
+        <div class="delete-overlay">
+            <button class="delete-confirm-btn" onclick="deletePhoto('${finalUrl}')">消去する？💔</button>
+        </div>
+        <img src="${finalUrl}" class="main-photo" style="display:block;">
+        <p class="photo-caption">${data.caption || 'No Title'}</p>
+    `;
 
-    // 🌸 Googleフォトなどのリンクを、画像として表示できる形式に変換する魔法
-function cleanImageUrl(url) {
-    if (url.includes("photos.app.goo.gl")) {
-        // Googleフォトの共有リンクは特殊なので、
-        // 今回は「リンク」として表示するか、別の保存方法を考える必要があるかも！
-        return url; 
-    }
-    if (url.includes("drive.google.com")) {
-        // GoogleドライブのURLを直リンクに変換する魔法！
-        return url.replace("/file/d/", "/uc?export=view&id=").replace("/view?usp=sharing", "");
-    }
-    return url;
+    // 💡 長押しの判定ロジック
+    let pressTimer;
+    
+    // 指が触れたらタイマー開始
+    frame.addEventListener('touchstart', () => {
+        pressTimer = window.setTimeout(() => {
+            frame.classList.add('show-delete'); // 1秒長押しでボタン表示
+        }, 1000);
+    });
+    
+    // 指が離れたらタイマー解除
+    frame.addEventListener('touchend', () => {
+        clearTimeout(pressTimer);
+    });
+
+    gallery.appendChild(frame);
 }
 
-// 🌸 displayPhoto関数の中で使うよ
-function displayWish(text, index) {
-    // ... 前のコード ...
-    // <img src="${cleanImageUrl(data.url)}"> みたいに使うと動くよ！
+// 🌸 本当に消しちゃう魔法
+async function deletePhoto(url) {
+    if (!confirm("本当にこの思い出を消しちゃう？😢")) return;
+    
+    try {
+        await fetch(PHOTO_API_URL, {
+            method: "POST",
+            body: JSON.stringify({ method: "delete", url: url })
+        });
+        location.reload(); // 消したら画面を更新！
+    } catch (e) {
+        alert("消去に失敗しちゃった💦");
+    }
 }
+
+    function doPost(e) {
+  const params = JSON.parse(e.postData.contents);
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  
+  // 💡 もし「delete」という命令が届いたら削除する
+  if (params.method === "delete") {
+    const data = sheet.getDataRange().getValues();
+    for (let i = 0; i < data.length; i++) {
+      // URLが一致する行を探して削除するぞ
+      if (data[i][0] === params.url) {
+        sheet.deleteRow(i + 1);
+        return ContentService.createTextOutput(JSON.stringify({status: "success"}));
+      }
+    }
+  }
+  
+  // (今までの保存用のコードもここにあるはず。なければ追加してな！)
+}
+
 </script>
 </body>
 </html>
